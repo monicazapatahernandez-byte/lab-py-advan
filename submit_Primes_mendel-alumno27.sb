@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --job-name=primes
+#SBATCH --partition=hpc-bio-mendel
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=00:30:00
+#SBATCH --output=/home/alumno27/lab-py-advan/primes_%j.out
+#SBATCH --chdir=/home/alumno27/lab-py-advan/
+
+module load anaconda/2025.06
+
+ipython ./primes-par-alumno27.ipynb 1000000
+ipython ./primes-par-alumno27.ipynb 10000000
+
