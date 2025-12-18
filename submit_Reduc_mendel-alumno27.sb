@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH --job-name=reduc_numba
+#SBATCH --partition=hpc-bio-mendel
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --time=00:15:00
+#SBATCH --output=reduc_%j.out
+#SBATCH --chdir=/home/alumno27/lab-py-advan/
+
+module load anaconda/2025.06
+
+# Limitar el número de threads al número de cores asignados por SLURM
+export NUMBA_NUM_THREADS=$SLURM_CPUS_PER_TASK
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+echo "CPUs per task: $SLURM_CPUS_PER_TASK"
+echo "NUMBA_NUM_THREADS: $NUMBA_NUM_THREADS"
+echo "------------------------------------"
+
+ipython reduc-operation-array-alumno27.ipynb 100000000
+ipython reduc-operation-array-alumno27.ipynb 1000000000
+
+echo "------------------------------------"
+echo "finish"
+
