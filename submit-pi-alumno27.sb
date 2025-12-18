@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH --job-name=pi_mc
+#SBATCH --partition=hpc-bio-ampere
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=00:10:00
+#SBATCH --output=/home/alumno27/lab-py-advan/pi_%j.out
+#SBATCH --chdir=/home/alumno27/lab-py-advan/
+
+module load anaconda/2025.06
+
+# Control del paralelismo de Numba
+export NUMBA_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+echo "CPUs per task: $SLURM_CPUS_PER_TASK"
+echo "NUMBA_NUM_THREADS: $NUMBA_NUM_THREADS"
+echo "------------------------------------"
+
+ipython ./pi-par-solution-alumno27.ipynb
+
+echo "finish"
+
